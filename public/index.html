@@ -26,7 +26,7 @@
 <div class="container-fluid" style="background-color: #131f2d; height: 70px; color: #fff; padding-top: 10px">
 	<div class="container">
 		<center>
-			<h4>CmpE 202-02 Insight for Weather</h4>
+			<h4>CMPE 272-02 Insight for Weather</h4>
 		</center>
 	</div>
 </div>
@@ -46,6 +46,7 @@
 		<div class="col-xs-4">
 			<center>
 				<select class="ind" onchange="setLocation(this.options[this.selectedIndex].value)" style="display: none; padding: 6px 10px">
+					<option>Select City</option>
 					<option value="28.61,77.20">Delhi</option>
 					<option value="19.07,72.87">Mumbai</option>
 					<option value="23.02,72.57">Ahmedabad</option>
@@ -57,33 +58,37 @@
 				</select>
 
 				<select class="wor" onchange="setLocation(this.options[this.selectedIndex].value)" style="padding: 6px 10px">
-					<option value="42.34,-75.18">New York</option> 
+					<option>Select City</option>
+					<option value="42.34,-75.18">New York</option>
 					<option value="45.43,-75.68">Ottawa</option>
 					<option value="51.51,0.13">London</option>
 					<option value="48.85,2.35">Paris</option>
 					<option value="41.90,12.50">Rome</option>
 					<option value="55.75,37.61">Moscow</option>
+					<option value="28.61,77.20">Delhi</option>
 					<option value="18.97,72.83">Mumbai</option>
 					<option value="27.70,85.33">Kathmandu</option>
 					<option value="39.91,116.38">Beijing</option>
 					<option value="35.68,139.68">Tokyo</option>
+					<option value="-33.86,151.20">Sydney</option>
 				</select>
 
 				<select class="usa" onchange="setLocation(this.options[this.selectedIndex].value)" style="display: none; padding: 6px 10px">
-					<option value="42.34,-75.18">New York</option> 
-					<option value="45.43,-75.68">Ottawa</option>
-					<option value="51.51,0.13">London</option>
-					<option value="48.85,2.35">Paris</option>
-					<option value="41.90,12.50">Rome</option>
-					<option value="55.75,37.61">Moscow</option>
-					<option value="18.97,72.83">Mumbai</option>
-					<option value="27.70,85.33">Kathmandu</option>
-					<option value="39.91,116.38">Beijing</option>
-					<option value="35.68,139.68">Tokyo</option>
+					<option>Select City</option>
+					<option value="42.34,-75.18">New York</option>
+					<option value="37.33,-121.88">San Jose</option>
+					<option value="37.77,-122.41">San Francisco</option>
+					<option value="47.60,-122.33">Seattle</option>
+					<option value="38.90,-77.03">Washington DC</option>
+					
 				</select>
 
 				<select class="aus" onchange="setLocation(this.options[this.selectedIndex].value)" style="display: none; padding: 6px 10px">
-					<option></option>
+					<option>Select City</option>
+					<option value="-33.86,151.20">Sydney</option>
+					<option value="-37.81,144.96">Melbourne</option>
+					<option value="-31.95,115.85">Perth</option>
+					<option value="-27.47,153.02">Brisbane</option>
 				</select>
 			</center>
 		</div>
@@ -100,7 +105,7 @@
 
 <div class="container-fluid" style="background-color: #2a688d; padding-top: 20px; height: 215px; color: #fff">
 	<div class="container">
-		<div class="col-xs-6">
+		<div class="col-xs-5">
 			<div class="col-xs-8">
 				<center>
 					<div id="weather_dow" style="font-size: 30px">
@@ -123,7 +128,16 @@
 				</center>
 			</div>
 		</div>
-		<div class="col-xs-6">
+
+		<div class="col-xs-4">
+			<h2>Weather At</h2>
+			</br>
+			<div id="weather_latlong" style="font-size: 20px">
+				Selected Location
+			</div>
+		</div>
+
+		<div class="col-xs-3">
 			<table width="200px" align="right">
 				<tbody>
 					<tr>
@@ -162,12 +176,15 @@
 
 <div class="container-fluid">
 	<div class="container" id="weather_daily">
-		
+
 	</div>
 </div>
 
 
 <!-- <script src="main.js"></script> -->
 <script src="main1.js"></script>
+<div style="padding-bottom: 100px;">
+	
+</div>
 </body>
 </html>

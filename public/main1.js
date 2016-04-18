@@ -6,16 +6,21 @@ function countryUpdate(country){
 	$('.wor').hide();
 	if(country == 'ind'){
 		$('.ind').show();
+		$('.ind')[0].selectedIndex = 0;
 	}
 	if(country == 'wor'){
 		$('.wor').show();
+		$('.wor')[0].selectedIndex = 0;
 	}
 	if(country == 'us'){
 		$('.usa').show();
+		$('.usa')[0].selectedIndex = 0;
 	}
 	if(country == 'aus'){
 		$('.aus').show();
+		$('.aus')[0].selectedIndex = 0;
 	}
+	init();
 }
 function getIconURL(code) {
 	return "images/weathericons/icon" + code + ".png";
@@ -35,7 +40,7 @@ function setUnits() {
 
 function getDow(d) {
     var weekNames = [ "Sunday", "Monday", "Tuesday", "Wednedsay", "Thursday", "Friday", "Saturday" ];
-    return weekNames[d.getDay()]; 
+    return weekNames[d.getDay()];
 }
 
 function getMonthDate(d) {
@@ -46,11 +51,11 @@ function getMonthDate(d) {
 function parseDate(d) {
     var weekNames = [ "Sunday", "Monday", "Tuesday", "Wednedsay", "Thursday", "Friday", "Saturday" ],
     	monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
-        d2 = weekNames[d.getDay()] + ', ' 
-        + 	monthNames[d.getMonth()] + ' ' 
-        +  	d.getDate() + ', ' 
-        +	d.getFullYear() + ' @ ' 
-        +	d.getHours() + ':' 
+        d2 = weekNames[d.getDay()] + ', '
+        + 	monthNames[d.getMonth()] + ' '
+        +  	d.getDate() + ', '
+        +	d.getFullYear() + ' @ '
+        +	d.getHours() + ':'
         + 	pad(d.getMinutes(), 2)
     return d2;
 }
@@ -82,11 +87,12 @@ function tempType() {
 }
 
 
-function updateToday(forecast) {
+function updateToday(metadata,forecast) {
 	var d = new Date(forecast.fcst_valid_local) || Date.now();
 	var dateString =  getMonthDate(d) + ", " + d.getFullYear();
 	var data = forecast.day || forecast.night;
 	console.log(data);
+	$("#weather_latlong").html('Latitude: ' + metadata.latitude + ' Longitude: ' + metadata.longitude);
 	$("#weather_icon").html('<img id="weather_icon" hspace="10px" width="70px" height="70px" style="margin-top: -30px" src="' + getIconURL(data.icon_code) + '"/>');
 	$("#weather_dow").html(forecast.dow);
 	$("#weather_date").html(dateString);
@@ -145,7 +151,7 @@ function renderDailyForecast(forecasts) {
 	+				forecast.max_temp + '&#176; / '+forecast.min_temp+ '&#176;'
 	+			'</div>'
 	+			'<div class="col-xs-7" style="padding-top: 10px">'
-	+				forecast.narrative 
+	+				forecast.narrative
 	+			'</div>'
 	+		'</div>'
 	+	'</div>';
@@ -158,32 +164,33 @@ function setLocation(geocode, units, language) {
 	units = units || getUnits();
 	language = "en";
 	coord = geocode;
-	weatherAPI("/api/forecast/daily", { 
+	weatherAPI("/api/forecast/daily", {
 		geocode: geocode,
 		units: units,
 		language: language
 	}, function(err, data) {
   		if (err) {
   		} else {
+				console.log(data);
   			if (data.forecasts) {
-  				updateToday(data.forecasts[0]);
+  				updateToday(data.metadata,data.forecasts[0]);
 				$("#weather_daily").html(renderDailyForecast(data.forecasts.slice(1)));
 			} else {
 	  		}
   		}
 	});
 
-	// weatherAPI("/api/forecast/hourly", { 
+	// weatherAPI("/api/forecast/hourly", {
 	// 	geocode: geocode,
 	// 	units: units,
 	// 	language: language
 	// }, function(err, data) {
  //  		if (err) {
- // 
+ //
  //  		} else {
  //  			if (data.forecasts) {
- // 
- // 
+ //
+ //
 	// 		} else {
 	//
 	// 		}
